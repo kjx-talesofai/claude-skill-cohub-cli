@@ -1,6 +1,6 @@
 ---
 name: cohub-cli
-description: Reference skill for using the @neta-art/cohub-cli to interact with Cohub spaces, sessions, files, checkpoints, scheduled prompts, and multimodal generation. Use when the user mentions cohub, spaces, sessions, checkpoints, sending prompts to cohub, managing space files, or scheduling recurring prompts.
+description: Cohub CLI for spaces, sessions, files, checkpoints, and prompts. Triggers: cohub, space, session.
 ---
 
 # Cohub CLI Skill
