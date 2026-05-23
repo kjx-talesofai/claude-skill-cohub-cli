@@ -1,6 +1,6 @@
 ---
 name: cohub-cli
-description: Cohub CLI for spaces, sessions, files, checkpoints, and prompts. Triggers: cohub, space, session.
+description: "Cohub CLI for spaces, sessions, files, checkpoints, and prompts. Triggers: cohub, space, session."
 ---
 
 # Cohub CLI Skill
