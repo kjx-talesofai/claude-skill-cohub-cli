@@ -139,3 +139,32 @@ Confirm before:
 4. **Session continuity** — reuse `--session <id>` to continue a conversation rather than creating new sessions.
 5. **Checkpoints for milestones** — save checkpoints before risky operations or at meaningful milestones.
 6. **Piping** — use `cat file.md | cohub -s <id> prompt` for large prompts instead of inline strings.
+
+## Prompt Best Practices
+
+### Wrap text to avoid shell escaping
+
+Multi-line prompts with code blocks, JSON, or special characters (`$`, backticks, quotes) get mangled by shell eval. Write to a file first:
+
+```bash
+cat > /tmp/prompt.txt << 'EOF'
+Your multi-line prompt here...
+With `code` and "quotes" and $variables.
+EOF
+
+cohub -s <space-id> prompt --session <session-id> "$(cat /tmp/prompt.txt)" --json
+```
+
+### Choose result handling
+
+| Approach | When to use | Command |
+|---|---|---|
+| **Fire and forget** | User watches in Web UI | Send prompt, stop. No polling. |
+| **Poll for result** | Need output in this session | `sleep 15 && cohub spaces sessions turns ls <session-id>` |
+| **Check later** | Long-running task | Note the turnId, check manually later. |
+
+**Default:** After sending a prompt, ask the user "Do you want me to wait for the result, or will you check in the Web UI?" If the user says "我看就行" or similar, do not poll.
+
+### Session continuity
+
+For multi-step tasks, always reuse the same `--session <id>` so the Agent retains context across turns. Creating a new session per prompt loses state.
